@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,13 +27,17 @@ export default function Login() {
           },
           credentials: "include",
           body: JSON.stringify({
-            email,
-            password,
+            clientType: "web",
+            login,
+            secret: password,
           }),
         }
       );
 
       const data = await res.json();
+
+      console.log("STATUS:", res.status);
+      console.log("DATA:", data);
 
       if (res.ok) {
         router.push("/dashboard");
@@ -65,18 +69,22 @@ export default function Login() {
         </p>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-2 mt-8">
-          <label className="text-sm font-semibold">Email <span className="text-red-500">*</span></label>
+          <label className="text-sm font-semibold">
+            Email <span className="text-red-500">*</span>
+          </label>
 
           <input
-            type="email"
+            type="login"
             placeholder="fatimah@badr.co.id"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
             className="border border-gray-300/80 text-sm p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
             required
           />
 
-          <label className="text-sm font-semibold">Kata Sandi <span className="text-red-500">*</span></label>
+          <label className="text-sm font-semibold">
+            Kata Sandi <span className="text-red-500">*</span>
+          </label>
 
           <input
             type="password"
@@ -88,7 +96,9 @@ export default function Login() {
           />
 
           {errorMessage && (
-            <p className="text-sm text-red-500 mt-2">{errorMessage}</p>
+            <p className="text-sm text-red-500 mt-2">
+              {errorMessage}
+            </p>
           )}
 
           <button

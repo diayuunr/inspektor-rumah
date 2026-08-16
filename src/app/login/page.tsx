@@ -1,13 +1,24 @@
-'use client';
+"use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Login from "./Login";
+import { getCurrentUser } from "@/lib/auth";
 
-const LoginPage = () => {
-  return (
-    <div className="relative overflow-x-hidden">
-      <Login />
-    </div>
-  );
-};
+export default function LoginPage() {
+  const router = useRouter();
 
-export default LoginPage;
+  useEffect(() => {
+    const checkAuth = async () => {
+      const user = await getCurrentUser();
+
+      if (user) {
+        router.replace("/dashboard");
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  return <Login />;
+}
