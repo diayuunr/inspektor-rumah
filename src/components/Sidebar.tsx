@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ClipboardIcon, HomeIcon, LogoutIcon, UsersIcon } from "./icons";
+import { LogoutIcon } from "./icons";
+import { FileText, Home, Clipboard, Users } from "react-feather";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: HomeIcon },
-  { href: "/riwayat-inspeksi", label: "Riwayat Inspeksi", icon: ClipboardIcon },
-  { href: "/inspektur", label: "Inspektur", icon: UsersIcon },
+  { href: "/dashboard", label: "Dashboard", icon: Home },
+  { href: "/riwayat-inspeksi", label: "Riwayat Inspeksi", icon: Clipboard },
+  { href: "/laporan", label: "Laporan", icon: FileText },
+  { href: "/inspektur", label: "Inspektur", icon: Users },
 ];
 
 export default function Sidebar() {
