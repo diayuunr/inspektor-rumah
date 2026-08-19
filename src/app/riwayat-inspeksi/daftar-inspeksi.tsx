@@ -1,5 +1,6 @@
 'use client';
 
+import DetailInspeksi from "@/components/detail-inspeksi";
 import { useMemo, useState } from "react";
 import {
   ChevronDown,
@@ -117,6 +118,8 @@ const DaftarInspeksi = () => {
   const totalSelesai = inspections.filter(
     (inspection) => inspection.status === "selesai"
     ).length;
+  const [selectedInspection, setSelectedInspection] =
+  useState<Inspection | null>(null);
 
   return (
     <div className="flex flex-col gap-6 bg-[var(--neutral-50)]">
@@ -301,10 +304,16 @@ const DaftarInspeksi = () => {
                           <button
                             type="button"
                             className="inline-flex items-center whitespace-nowrap hover:text-[var(--primary-500)] cursor-pointer"
+                            onClick={() => setSelectedInspection(inspection)}
                           >
                             Lihat Detail
                             <ChevronRight className="w-5 h-5 ml-1" />
                           </button>
+                          {selectedInspection && (
+                            <DetailInspeksi
+                              inspection={selectedInspection}
+                              onClose={() => setSelectedInspection(null)}
+                            />)}
                         </td>
                       </tr>
                     ))
